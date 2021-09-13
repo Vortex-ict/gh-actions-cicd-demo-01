@@ -12,7 +12,7 @@ jobs:
           DOCKER_USER: ${{ secrets.DOCKER_USER }}
           DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }} # or a docker PAT (token)
         run: |
-          docker login -u $DOCKER_USER -p $DOCKER_PASSWORDt
+          docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
       - name: docker build kube-ip
         run: |
           docker build . -t vortexict/kube-ip:1.0.1
