@@ -1,0 +1,21 @@
+name: Docker Series Builds
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: docker login
+        env:
+          DOCKER_USER: ${{ secrets.DOCKER_USER }}
+          DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }} # or a docker PAT (token)
+        run: |
+          docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
+      - name: docker build kube-ip
+        run: |
+          docker build . -t vortexict/kube-ip:1.0.1
+      - name: docker push
+        run: |
+          docker push vortexict/kube-ip:1.0.1
