@@ -1,6 +1,7 @@
 name: Docker Image Build & Push
 
 # on: [push]
+
 on:
   push:
       branches: ['main']
@@ -25,14 +26,20 @@ jobs:
           DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }} # or a docker PAT (token)
         run: |
           docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
-      
+
+      - name: Get current date
+        id: date
+        run: echo "::set-output name=date::$(date +'%Y-%m-%d')"
+
       - name: docker build
+        env:
+          TAG: ${{ steps.date.outputs.date }}
         run: |
-          docker build . -t vortexict/kube-ip:1.0.1
+          docker build . -t vortexict/kube-ip:$(TAG)
       
       - name: docker push
         run: |
-          docker push vortexict/kube-ip:1.0.1
+          docker push vortexict/kube-ip:$(TAG)
       
       - name: Log in to the GH Container registry
         uses: docker/login-action@f054a8b539a109f9f41c372932f1ae047eff08c9
@@ -45,7 +52,7 @@ jobs:
         id: meta
         uses: docker/metadata-action@98669ae865ea3cffbcbaa878cf57c20bbf1c6c38
         with:
-          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:$(TAG)
 
       - name: Build and push Docker image
         uses: docker/build-push-action@ad44023a93711e3deb337508980b4b5e9bcdc5dc
