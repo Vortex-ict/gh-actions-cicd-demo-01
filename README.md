@@ -8,6 +8,4 @@ update
 
 [![GitHub commit checks state](https://img.shields.io/github/checks-status/Vortex-ict/gh-actions-cicd-demo-01/96349aa)](https://github.com/Vortex-ict/gh-actions-cicd-demo-01/actions/workflows/docker.yaml)
 
-[![Gitb license](https://img.shields.io/github/license/Naereen/StrapDown.js.svg)](https://github.com/Naereen/StrapDown.js/blob/master/LICENSE)
-
 ![git](https://img.shields.io/github/license/Vortex-ict/gh-actions-cicd-demo-01?style=plastic)
